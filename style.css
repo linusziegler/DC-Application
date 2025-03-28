@@ -1,0 +1,324 @@
+@font-face {
+    font-family: "BasierCircle";
+    src: url('fonts/Basier_Circle/basiercircle-regular-webfont.eot');
+    src: url('fonts/Basier_Circle/basiercircle-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Basier_Circle/basiercircle-regular-webfont.woff2') format('woff2'),
+        url('fonts/Basier_Circle/basiercircle-regular-webfont.woff') format('woff'),
+        url('fonts/Basier_Circle/basiercircle-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BasierCircle-medium';
+    src: url('fonts/Basier_Circle/basiercircle-medium-webfont.eot');
+    src: url('fonts/Basier_Circle/basiercircle-medium-webfont.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Basier_Circle/basiercircle-medium-webfont.woff2') format('woff2'),
+        url('fonts/Basier_Circle/basiercircle-medium-webfont.woff') format('woff'),
+        url('fonts/Basier_Circle/basiercircle-medium-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Editorial New';
+    src: url('fonts/PPEditorialNew-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    font-size: 11px;
+    --default-text-size: 1.6rem;
+
+    --bg-color: white;
+    /* --accent-color: #ff4000; */
+    --accent-color: blue;
+
+    --large-text: min(8.5vw, 14vh);
+
+    /* grid vars */
+    --grid-margin: 1.5rem;
+    --grid-column-count: 6;
+    --grid-row-count: 6;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--bg-color);
+    color: black;
+    font-family: 'BasierCircle';
+    font-size: 1rem;
+
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem;
+    margin-bottom:1.5rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+li {
+    margin-bottom: var(--grid-margin);
+}
+
+p {
+    margin: 0;
+}
+
+
+div {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    padding: 0;
+    margin: 0;
+}
+
+/* text styles */
+
+.small-heading {
+    font-family: "BasierCircle-medium";
+    font-size: var(--default-text-size);
+    line-height: var(--default-text-size);
+    text-transform: uppercase;
+
+    padding-bottom: var(--grid-margin);
+}
+
+.medium-heading {
+    font-size: 1.8rem;
+    font-family: 'BasierCircle-medium';
+    text-transform: uppercase;
+}
+
+.large-title {
+    font-family: 'BasierCircle-medium';
+    font-size: var(--large-text);
+    line-height: calc(var(--large-text) + 1rem);
+    margin-bottom: calc(-0.1 * var(--large-text));
+    text-transform: uppercase;
+}
+
+.large-text {
+    font-size: 2.4rem;
+}
+
+a, .scroll-link {
+    cursor: pointer;
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+/* main body */
+
+.main-body {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    min-height: 450px;
+
+    padding: var(--grid-margin);
+
+    transition: filter .3s ease;
+
+    overflow: scroll;
+    scroll-snap-type: y mandatory; /* Enable scroll snapping */
+
+    /* hide scrollbar */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+.main-body::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+
+}
+
+.main-body.hidden {
+    transition: all .3s ease;
+    filter: 
+        blur(10px)
+        grayscale(1);
+}
+
+/* chapter styling */
+
+/* Wrapper for each chapter */
+.chapter-w {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: calc((var(--grid-row-count) - 1) * 1fr) 1fr; /* Content and title */
+    gap: var(--grid-margin);
+    scroll-snap-align: start; /* Snap to the start of each chapter */
+    overflow: hidden;
+}
+
+.chapter-title {
+    grid-row: 2 / span 1;
+    align-self: end;
+}
+
+/* Scrollable content wrapper */
+.chapter-scroll-w {
+    grid-row: 1; /* Place in the first row */
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-margin);
+    overflow-y: scroll;
+    /* background-color: rgb(227, 227, 227); */
+
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+/* Hide scrollbar */
+.chapter-scroll-w::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.chapter {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-column-count), 1fr);
+    grid-template-rows: repeat(var(--grid-row-count) - 2, 1fr);
+    gap: var(--grid-margin);
+
+    padding-top: calc(var(--grid-margin) * 2);
+}
+
+.chapter-text {
+    margin-bottom: 10vh;
+    padding-right: var(--grid-margin);
+    grid-column: span var(--grid-column-count);
+}
+.chapter-text p {
+    margin-bottom:.8rem;
+    font-size: var(--default-text-size);
+    line-height: 1.5;
+}
+
+.chapter-image img {
+    object-fit: contain;
+    object-position: top;
+    width: 100%;
+    height: 100%;
+}
+
+/* universal grid sizes  */
+
+/* vertical */
+.small {
+    grid-row: span 1;
+}
+.medium {
+    grid-row: span calc(var(--grid-row-count) - 2);
+}
+.large {
+    grid-row: span calc(var(--grid-row-count) - 1);
+}
+
+/* horizontal */
+.full {
+    grid-column: span var(--grid-column-count);
+}
+.half {
+    grid-column: span 3;
+}
+.third {
+    grid-column: span 2;
+}
+.single {
+    grid-column: span 1;
+}
+
+/* ellipse menu */
+
+.ellipse-w {
+    pointer-events: none;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* initially hidden */
+    opacity: 0;
+
+    width: 100vw;
+    height: 100vh;
+    transition: opacity .3s ease;
+    transform:
+        rotate(-12deg);
+}
+
+.ellipse {
+    width: 100%;
+    height: 100%;
+}
+
+#ellipsePath {
+    fill: none;
+    stroke: var(--accent-color);
+    stroke-width: 1;
+}
+
+#point {
+    fill: var(--accent-color);
+    stroke: none;
+}
+
+#tooltip {
+    position: absolute;
+    width: max-content;
+
+    color: var(--accent-color);
+
+    pointer-events: none;
+    rotate: 12deg;
+    translate: -50% -50%;
+}
+
+/* global overlay */
+
+.global-overlay {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+.overlay-content {
+    display: grid;
+    padding-left: var(--grid-margin);
+    padding-right: var(--grid-margin);
+    grid-template-columns: repeat(var(--grid-column-count), 1fr); /* Adjust based on your grid system */
+    gap: var(--grid-margin);
+    width: 100%;
+}
+
+.overlay-item {
+    grid-column: span 1;
+}
+
+.overlay-item:first-of-type {
+    grid-column: 4 / span 2;
+}
+
+.overlay-item:last-of-type {
+    text-align: right;
+}

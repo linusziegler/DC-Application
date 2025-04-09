@@ -3,6 +3,7 @@ const ellipse = document.querySelector('.ellipse');
 const point = document.getElementById('point');
 const ellipsePath = document.getElementById('ellipsePath');
 const mainBody = document.querySelector('.main-body');
+const scrollWrapper = document.querySelector('.chapter-scroll-w');
 const chapters = document.querySelectorAll('.chapter-w');
 const tooltip = document.querySelector('#tooltip');
 const ellipseWrapper = document.querySelector('.ellipse-w');
@@ -93,7 +94,7 @@ function handleScroll() {
     scrollTimeout = setTimeout(() => {
         ellipseWrapper.style.opacity = '0';
         mainBody.classList.remove("hidden");
-    }, 25);
+    }, 30);
     movePointOnPath();
 
     // Seamless scroll-back-to-top logic
@@ -109,6 +110,11 @@ function handleScroll() {
             top: firstChapter.top,
             behavior: 'auto', // Instant scroll to avoid visible jump
         });
+        // reset scroll-wrapper scroll
+        scrollWrapper.scrollTo({
+            top: 0,
+            behavior: 'auto', // Instant scroll to avoid visible jump
+        });
     }
 }
 
@@ -120,7 +126,7 @@ function addScrollLinkEventListeners() {
             const targetId = link.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
     });
